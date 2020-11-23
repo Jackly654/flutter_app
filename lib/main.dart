@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import './demo/listview_demo.dart';
+import './demo/drawer_demo.dart';
+import './demo/bottom_naigation_bar_demo.dart';
+
 void main() =>runApp(App());
 
 class App extends StatelessWidget{
@@ -29,11 +32,7 @@ class Home extends StatelessWidget{
       child: Scaffold(
         backgroundColor: Colors.grey[100],
         appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.menu),
-            tooltip: 'Navigration',
-            onPressed: () => debugPrint('Navigration button is pressed.'),
-            ),
+
          title: Text('GGGGG'),
          actions: <Widget>[
           IconButton(
@@ -53,21 +52,14 @@ class Home extends StatelessWidget{
         ),
         body: TabBarView(
           children: <Widget>[
-            Icon(Icons.local_florist, size: 128.0, color: Colors.black26,),
+            //Icon(Icons.local_florist, size: 128.0, color: Colors.black26,),
+            ListViewDemo(),
             Icon(Icons.change_history, size: 128.0, color: Colors.black26,),
             Icon(Icons.directions_bike, size: 128.0, color: Colors.black26,),
           ],
         ),
-        drawer: Container(
-          color: Colors.white,
-          padding: EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('this is drawer test')
-            ],
-          )
-        )
+        drawer: DrawerDemo(),
+        bottomNavigationBar: BottomNavigationBarDemo(),
       )
      );
   }
