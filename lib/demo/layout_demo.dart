@@ -9,28 +9,95 @@ class LayoutDemo extends StatelessWidget{
         IconBadge(Icons.pool, size: 128,),
       ],
     );*/
-    Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SizedBox(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(3, 54, 255, 1.0)
-              ),
-            ),
-          )
-          /*IconBadge(Icons.pool),
+      Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          //crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+        //StackDemo()
+        ConstrainedBox(
+        constraints: BoxConstraints(
+          minHeight: 200.0,
+          maxWidth: 200.0,
+          ),
+          child: Container(
+            color: Color.fromRGBO(3, 54, 255, 1.0),
+          ),
+        ),
+      ],
+
+    /*IconBadge(Icons.pool),
           IconBadge(Icons.pool),
           IconBadge(Icons.pool),*/
-        ],
+      )
+    );
+  }
+
+}
+
+class AspectRatioDemo extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return AspectRatio(
+      aspectRatio: 3.0/2.0,
+      child: Container(
+        color: Color.fromRGBO(3, 54, 255, 1.0),
       ),
     );
   }
 
 }
 
+class StackDemo extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Stack(
+        alignment: Alignment.topRight,
+        children: [
+          SizedBox(
+            width: 200.0,
+            height: 300.0,
+            child: Container(
+              alignment: Alignment(0.0, -0.9),
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(3, 54, 255, 1.0),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Icon(Icons.ac_unit, color: Colors.white, size: 32,),
+            ),
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          SizedBox(
+            width: 100.0,
+            height: 100.0,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(3, 54, 255, 1.0),
+                //borderRadius: BorderRadius.circular(8.0),
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                    colors:[
+                      Color.fromRGBO(7, 103, 255, 1.0),
+                      Color.fromRGBO(3, 54, 255, 1.0),
+                    ]
+                ),
+              ),
+              child: Icon(Icons.brightness_1, color: Colors.white, size: 32,),
+            ),
+          ),
+          Positioned(
+            right: 20.0,
+            bottom: 20.0,
+            child: Icon(Icons.ac_unit, color: Colors.white, size: 32,),
+          )
+        ]
+    );
+  }
+}
 class IconBadge extends StatelessWidget{
   final IconData icon;
   final double size;
@@ -43,7 +110,7 @@ class IconBadge extends StatelessWidget{
     // TODO: implement build
     return Container(
       child: Icon(icon, size: size, color: Colors.white),
-        width: size + 60,
+      width: size + 60,
       height: size + 60,
       color: Color.fromRGBO(3, 54, 255, 1.0),
     );
