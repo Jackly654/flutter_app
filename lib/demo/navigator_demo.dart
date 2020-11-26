@@ -17,11 +17,11 @@ class NavigatorDemo extends StatelessWidget{
               child: Text('About'),
               onPressed: (){
                 Navigator.pushNamed(context, '/about');
-                /*Navigator.of(context).push(
+                Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (BuildContext context) => PageJ(title: 'About',)
                   ),
-                );*/
+                );
               },
             ),
           ],

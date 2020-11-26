@@ -19,7 +19,7 @@ class App extends StatelessWidget{
       //home: NavigatorDemo(),//Home(),
       initialRoute: '/about',
       routes: {
-        '/': (context) => NavigatorDemo(),
+        '/': (context) => Home(),//NavigatorDemo(),
         '/about': (context) => PageJ(title : 'About')
       },
       //Home(),
