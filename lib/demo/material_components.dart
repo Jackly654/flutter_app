@@ -5,6 +5,14 @@ import './popup_menu_button.dart';
 import './form_demo.dart';
 import './checkbox_demo.dart';
 import './radio_demo.dart';
+import './switch_demo.dart';
+import './slider_demo.dart';
+import './date_time_demo.dart';
+import './simple_dialog_demo.dart';
+import './alert_dialog_demo.dart';
+import './bottom_sheet_demo.dart';
+import './snackbar_demo.dart';
+import './expansion_panel_demo.dart';
 
 class MaterialComponents extends StatelessWidget {
   @override
@@ -16,6 +24,14 @@ class MaterialComponents extends StatelessWidget {
       ),
       body: ListView(
         children: [
+          ListItem(title: 'ExpansionPanel', page: ExpansionPanelDemo()),
+          ListItem(title: 'SnackBar', page: SnackBarDemo()),
+          ListItem(title: 'BottomDialog', page: BottomSheetDemo()),
+          ListItem(title: 'AlertDialog', page: AlertDialogDemo()),
+          ListItem(title: 'SimpleDialog', page: SimpleDialogDemo()),
+          ListItem(title: 'DateTime', page: DateTimeDemo()),
+          ListItem(title: 'Slider', page: SliderDemo()),
+          ListItem(title: 'Switch', page: SwitchDemo()),
           ListItem(title: 'Radio', page: RadioDemo()),
           ListItem(title: 'Checkbox', page: CheckBoxDemo()),
           ListItem(title: 'Form', page: FormDemo()),
