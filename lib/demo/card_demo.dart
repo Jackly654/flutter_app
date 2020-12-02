@@ -27,9 +27,15 @@ class CardDemoState extends State<CardDemo> {
               children: [
                 AspectRatio(
                   aspectRatio: 16/9,
-                  child: Image.network(
-                    post.imageUrl,
-                    fit: BoxFit.cover,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(4.0),
+                      topRight: Radius.circular(4.0),
+                    ),
+                    child: Image.network(
+                      post.imageUrl,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 ListTile(
