@@ -13,22 +13,8 @@ class DataTableDemo extends StatefulWidget {
 }
 
 class DataTableDemoState extends State<DataTableDemo> {
-  List<String> _tags = [
-    'Apple',
-    'Banana',
-    'Lemon',
-  ];
-
-  String _action = 'Nothing';
-
-  List<String> _selected = [
-    /*'Apple',
-    'Banana',
-    'Lemon',*/
-  ];
-
-  String _choice = 'Lemon';
-
+  int _sortColumnIndex;
+  bool _sortAscending = true;
   final _bottomSheetScaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -36,17 +22,34 @@ class DataTableDemoState extends State<DataTableDemo> {
     return new Scaffold(
       key: _bottomSheetScaffoldKey,
       appBar: new AppBar(
-        title: new Text('SnackBargDemo'),
+        title: new Text('DataTableDemo'),
       ),
       body: Container(
         padding: EdgeInsets.all(16.0),
         child: ListView(
           children: [
             DataTable(
+              sortColumnIndex: _sortColumnIndex,
+              sortAscending: _sortAscending,
+              //onSelectAll: (bool value){}, 定制全选动作
               columns: [
                 DataColumn(
+                  onSort: (int index, bool ascending) {
+                    setState(() {
+                      _sortColumnIndex = index;
+                      _sortAscending = ascending;
+
+                      posts.sort((a, b) {
+                        if (!ascending) {
+                          final c = a;
+                          a = b;
+                          b = c;
+                        }
+                        return a.title.length.compareTo(b.title.length);
+                      });
+                    });
+                  },
                   label: Container(
-                    width: 150.0,
                     child: Text('Title'),
                   ),
                 ),
@@ -57,13 +60,23 @@ class DataTableDemoState extends State<DataTableDemo> {
                   label: Text('Image'),
                 ),
               ],
-              rows: posts.map((post) => DataRow(
-                  cells: [
-                    DataCell(Text(post.title)),
-                    DataCell(Text(post.author)),
-                    DataCell(Image.network(post.imageUrl)),
-                  ]
-              )).toList(),
+              rows: posts.map((post) =>
+                  DataRow(
+                      selected: post.selected,
+                      onSelectChanged: (bool value){
+                        setState(() {
+                          if(post.selected != value)
+                          {
+                            post.selected = value;
+                          }
+                        });
+                      },
+                      cells: [
+                        DataCell(Text(post.title)),
+                        DataCell(Text(post.author)),
+                        DataCell(Image.network(post.imageUrl)),
+                      ]
+                  )).toList(),
 
               /*
               *[
@@ -89,24 +102,9 @@ class DataTableDemoState extends State<DataTableDemo> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.restore),
-        onPressed: (){
-          setState(() {
-            _tags = [
-              'Apple',
-              'Banana',
-              'Lemon',
-            ];
-
-            _selected = [];
-
-            _choice = 'Lemon';
-          });
-        },
-      ),
     );
   }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -127,8 +125,6 @@ class DataTableDemoState extends State<DataTableDemo> {
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
+    // TODO: impleme
   }
 }
-

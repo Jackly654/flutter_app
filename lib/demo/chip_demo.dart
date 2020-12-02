@@ -35,7 +35,7 @@ class ChipDemoState extends State<ChipDemo> {
     return new Scaffold(
       key: _bottomSheetScaffoldKey,
       appBar: new AppBar(
-        title: new Text('SnackBargDemo'),
+        title: new Text('ChipDemo'),
       ),
       body: Container(
         padding: EdgeInsets.all(16.0),
