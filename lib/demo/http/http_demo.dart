@@ -25,11 +25,31 @@ class HttpDemoHome extends StatefulWidget {
 class HttpDemoHomeState extends State<HttpDemoHome> {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(''),
-      ),
-    );
+    return FutureBuilder(
+      future: fetchPosts(),
+      builder: (BuildContext context, AsyncSnapshot snapshot){
+        print('data: ${snapshot.data}');
+        print('data: ${snapshot.connectionState}');
+        //return Container();
+
+        if(snapshot.connectionState == ConnectionState.waiting){
+          return Center(
+            child: Text('loading...'),
+          );
+        }
+
+        return ListView(
+          children: snapshot.data.map<Widget>((item){
+            return ListTile(
+              title: Text(item.title),
+              subtitle: Text(item.author),
+              leading: CircleAvatar(
+                backgroundImage: NetworkImage(item.imageUrl),
+              ),
+            );
+          }).toList(),
+        );
+    });
   }
   @override
   void initState() {
@@ -37,7 +57,7 @@ class HttpDemoHomeState extends State<HttpDemoHome> {
     super.initState();
     //fetchPost();
 
-    final post = {
+    /*final post = {
       'title': 'hello',
       'description': 'nice to meet you.',
     };
@@ -56,13 +76,26 @@ class HttpDemoHomeState extends State<HttpDemoHome> {
     final postModel = Post.fromJson(postJsonConverted);
     print('title: ${postModel.title}, description: ${postModel.description}');
 
-    print('${json.encode(postModel)}');
+    print('${json.encode(postModel)}');*/
+
+    //fetchPosts().then((value) => print(value));
+
+
   }
 
   Future<List<Post>> fetchPosts() async {
     final response = await http.get('https://resources.ninghao.net/demo/posts.json');
 
-    print('stateCode: ${response.statusCode}');
+    //print('stateCode: ${response.statusCode}');
+    if(response.statusCode == 200){
+      final responseBody = json.decode(response.body);
+      List<Post> posts = responseBody['posts']
+      .map<Post>((item) => Post.fromJson(item)).toList();
+
+      return posts;
+    }else{
+      throw Exception('Failed to fetch posts.');
+    }
   }
 
   @override
