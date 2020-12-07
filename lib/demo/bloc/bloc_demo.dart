@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/demo/floating_action_button_demo.dart';
+import 'counter_bloc_demo.dart';
 
 class BlocDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('BlocDemo'),
+    return CounterProvider(
+      bloc: CounterBloc(),
+      child: new Scaffold(
+        appBar: new AppBar(
+          title: new Text('BlocDemo'),
+        ),
+        body: CounterHome(),
+        floatingActionButton: CounterActionButton(),
       ),
-      body: CounterHome(),
-      floatingActionButton: CounterActionButton(),
     );
   }
 }
